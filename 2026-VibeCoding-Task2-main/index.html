@@ -4,10 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ✅ title：有意義且非空 -->
     <title>志豪 Frontend Engineer｜React 前端工程師個人品牌網站</title>
 
-    <!-- ✅ description：50~160 字 -->
     <meta
       name="description"
       content="志豪的前端工程師個人品牌網站，專注於 React 開發、UI 設計與專案實作，展示技能、作品集與聯絡方式，協助企業快速了解實戰能力。"
@@ -20,24 +18,28 @@
         box-sizing: border-box;
       }
 
+      /* ✅ 防止水平捲動 */
+      html,
       body {
+        overflow-x: hidden;
         margin: 0;
+      }
+
+      body {
         font-family: system-ui, sans-serif;
         background-color: #0d1b2a;
         color: #e0e0e0;
         line-height: 1.6;
-      }
-
-      /* ✅ 防止水平捲動（關鍵） */
-      html,
-      body {
-        overflow-x: hidden;
+        /* ✅ 防止長字串撐破版面 */
+        overflow-wrap: break-word;
+        word-break: break-word;
       }
 
       .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 1rem;
+        /* ✅ 只用水平 padding，垂直由 section 控制 */
+        padding: 0 1rem;
         width: 100%;
       }
 
@@ -52,10 +54,11 @@
         text-decoration: none;
       }
 
-      /* Header */
+      /* ── Header ── */
       .site-header {
         position: sticky;
         top: 0;
+        z-index: 100;
         background: #1b263b;
       }
 
@@ -63,44 +66,66 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap; /* ✅ 防爆版 */
+        /* ✅ 超窄螢幕換行 */
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+      }
+
+      .nav-brand {
+        font-weight: bold;
+        white-space: nowrap;
       }
 
       .nav-links {
         display: flex;
-        gap: 1rem;
-        flex-wrap: wrap; /* ✅ 防 overflow */
+        gap: 0.75rem;
+        /* ✅ 連結過多時自動換行 */
+        flex-wrap: wrap;
       }
 
-      /* Section */
+      /* ── Section ── */
       section {
-        padding: 3rem 1rem;
+        padding: 3rem 0;
       }
 
       .hero {
         text-align: center;
+        padding: 3rem 1rem;
       }
 
       .hero img {
-        margin: 1rem auto;
+        margin: 1.5rem auto 0;
+        border-radius: 8px;
       }
 
-      /* RWD */
+      /* ── Flex 雙欄（768px+） ── */
       @media (min-width: 768px) {
-        .flex {
+        .flex-layout {
           display: flex;
           gap: 2rem;
           align-items: center;
         }
 
-        .flex > * {
+        /* ✅ min-width: 0 防止 flex 子元素撐破父容器 */
+        .flex-layout > * {
           flex: 1;
+          min-width: 0;
         }
       }
 
+      /* ── Contact ── */
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      /* ── Footer ── */
       footer {
         text-align: center;
-        padding: 1rem;
+        padding: 1.5rem 1rem;
         background: #1b263b;
       }
     </style>
@@ -108,8 +133,8 @@
 
   <body>
     <header class="site-header">
-      <nav class="nav container">
-        <div>志豪 Frontend</div>
+      <nav class="nav">
+        <div class="nav-brand">志豪 Frontend</div>
         <div class="nav-links">
           <a href="#hero">首頁</a>
           <a href="#about">關於</a>
@@ -125,23 +150,26 @@
       <section id="hero" class="hero">
         <h1>React 前端工程師｜打造高效能與高轉換的網站體驗</h1>
         <p>專注於前端開發、UI 設計與專案落地，具備跨部門協作經驗。</p>
-
+        <!-- ✅ 修正：source.unsplash.com 已廢棄，改用 picsum.photos -->
         <img
-          src="https://source.unsplash.com/800x600/?developer"
+          src="https://picsum.photos/800/450?random=1"
           alt="前端工程師正在開發網站畫面"
+          width="800"
+          height="450"
         />
       </section>
 
       <section id="about">
-        <div class="container flex">
+        <div class="container flex-layout">
           <div>
             <h2>關於我</h2>
             <p>具備 7+ 年科技業經驗，轉型前端工程師，專注 React 與產品開發。</p>
           </div>
-
           <img
-            src="https://source.unsplash.com/800x600/?workspace"
+            src="https://picsum.photos/800/600?random=2"
             alt="工程師工作環境"
+            width="800"
+            height="600"
           />
         </div>
       </section>
@@ -154,15 +182,16 @@
       </section>
 
       <section id="projects">
-        <div class="container flex">
+        <div class="container flex-layout">
           <div>
             <h2>作品集</h2>
             <p>包含電商網站、後台系統與完整 CRUD 專案。</p>
           </div>
-
           <img
-            src="https://source.unsplash.com/800x600/?code"
+            src="https://picsum.photos/800/600?random=3"
             alt="前端專案程式碼畫面"
+            width="800"
+            height="600"
           />
         </div>
       </section>
@@ -170,13 +199,22 @@
       <section id="contact">
         <div class="container">
           <h2>聯絡我</h2>
-
-          <!-- ✅ 全部合法連結 -->
-          <div>
-            <a href="mailto:hello@example.com">Email</a><br />
-            <a href="tel:+886900000000">電話</a><br />
-            <a href="https://github.com/yourname">GitHub</a><br />
-            <a href="https://linkedin.com/in/yourname">LinkedIn</a>
+          <!-- ✅ 所有 href 均為有效非空連結 -->
+          <div class="contact-links">
+            <a href="mailto:hello@example.com">Email：hello@example.com</a>
+            <a href="tel:+886900000000">電話：+886-900-000-000</a>
+            <a
+              href="https://github.com/yourname"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+            <a
+              href="https://linkedin.com/in/yourname"
+              target="_blank"
+              rel="noopener noreferrer"
+              >LinkedIn</a
+            >
           </div>
         </div>
       </section>
